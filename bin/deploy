@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+docker build -t lambda-db-backup . -f lambda_dockerfile
+docker run --rm -v $(pwd):/io -t lambda-db-backup /app/bin/package.sh
+aws lambda update-function-code --zip-file fileb://lambda.zip --function-name lambda-db-backup
