@@ -1,15 +1,13 @@
-FROM amazonlinux:2017.03
+FROM amazonlinux:2023
 
-RUN yum -y install git \
-    zip \
-    gcc \
-    openssl-devel \
-    bzip2-devel \
-    libffi-devel \
-    wget \
-    && yum clean all
+ENTRYPOINT ["/bin/bash"]
 
-RUN yum -y install postgresql96
+# Create a mock /etc/redhat-release if needed
+RUN echo "Amazon Linux release 2023 (Karoo)" > /etc/redhat-release
+
+# Install your packages here
+# For example, attempting to install PostgreSQL from PGDG
+RUN dnf update && dnf install zip postgresql15.x86_64 postgresql15-server -y
 WORKDIR /app
 
 COPY . /app
